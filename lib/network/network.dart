@@ -3,8 +3,8 @@ class Network
   /*
    * User
    */
-  static var url = 'http://172.17.100.2/practise/almond/api/v1/user';
-  static var login = 'http://172.17.100.2/practise/almond/api/login';
+  static var url = 'http://www.zia.apparelheaventouch.com/api/v1/user';
+  static var login = 'http://www.zia.apparelheaventouch.com/api/login';
   static var forget = '$url/forget';
   static var settings = '$url/settings';
 
@@ -18,7 +18,7 @@ class Network
 
 
   static var cassia_result = '$url/cassia/result';
-
+  static var alomnd_result = '$url/almond/result';
 
   /*
    *  Almond post request

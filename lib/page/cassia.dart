@@ -381,9 +381,9 @@ class _CassiaState extends State<Cassia> {
           var cost = jsonDecode(response.body)['cost'];
 
           setState(() {
-            _margin = margin;
-            _value = value;
-            _cost = cost;
+            _margin = margin.toString();
+            _value = value.toString();
+            _cost = cost.toString();
           });
         }).catchError((e) {
           print(e.toString());

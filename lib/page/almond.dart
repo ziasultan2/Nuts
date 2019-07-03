@@ -519,7 +519,7 @@ class _AlmondState extends State<Almond> {
     if( _key.currentState.validate())
     {
 
-      var url = "${Network.cassia_result}";
+      var url = "${Network.alomnd_result}";
       http.post(
           url,
           headers: {"Accept": "application/json", "Authorization": _token},

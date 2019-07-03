@@ -110,7 +110,9 @@ class _CashewState extends State<Cashew> {
               onPressed:() => Navigator.pop(context, false),
             )
         ),
-        body: Container(
+        body:
+        item.length  > 0 ?
+        Container(
           padding: EdgeInsets.only(top: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,7 +354,12 @@ class _CashewState extends State<Cashew> {
             ],
           ),
 
-        ),
+        ) :
+            Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
       ),
     );
 
