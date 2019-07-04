@@ -1,0 +1,3 @@
+class Nuts{
+  String name;
+}
