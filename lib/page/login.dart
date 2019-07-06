@@ -19,6 +19,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
+  final GlobalKey<ScaffoldState> mScaffoldState = new GlobalKey<ScaffoldState>();
+
+  GlobalKey<FormState> _key = new GlobalKey();
+  bool _validate = false;
 
   final email = new TextEditingController();
   final password = new TextEditingController();
@@ -30,13 +34,11 @@ class _LoginState extends State<Login> {
 
     TextStyle textStyle = Theme.of(context).textTheme.title;
 
-    final _formKey = GlobalKey<FormState>();
-
-
     return
-    MaterialApp(
+      MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        key: mScaffoldState,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.green,
@@ -47,7 +49,8 @@ class _LoginState extends State<Login> {
         body: Container(
           margin: EdgeInsets.all(_minimumPadding*8),
           child: Form(
-            key: _formKey,
+            key: _key,
+            autovalidate: _validate,
             child: ListView(
               children: <Widget>[
                 getImageAsset(),
@@ -55,7 +58,8 @@ class _LoginState extends State<Login> {
                 Padding(
                     padding: EdgeInsets.only(top: _minimumPadding*4,bottom: _minimumPadding*4),
                     child:
-                    TextField(
+                    TextFormField(
+                      validator: validateEmail,
                       controller: email,
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 25.0),
@@ -74,7 +78,8 @@ class _LoginState extends State<Login> {
                 Padding(
                     padding: EdgeInsets.only(top: _minimumPadding*4,bottom: _minimumPadding*4),
                     child:
-                    TextField(
+                    TextFormField(
+                      validator: validatePassword,
                       controller: password,
                       keyboardType: TextInputType.text,
                       obscureText: true,
@@ -113,11 +118,10 @@ class _LoginState extends State<Login> {
                   margin: EdgeInsets.only(top: 30.0),
                   child:InkWell(
                     child: Text('Forgot Password', style: TextStyle(fontSize: 25.0, decoration: TextDecoration.underline),),
-                      onTap: () {print('zia');},
+                    onTap: () {print('zia');},
                   ),
 
                 ),
-
               ],
             ),
           ),
@@ -125,7 +129,6 @@ class _LoginState extends State<Login> {
 
       ),
     );
-
   }
 
   Widget getImageAsset() {
@@ -137,40 +140,69 @@ class _LoginState extends State<Login> {
 
   void _onSubmit() {
 
-    var url = "${Network.login}";
-    print(url);
-    http.post(
-        url,
-        headers: {"Accept":"application/json"},
-        body: {'email' : email.text, 'password' : password.text}).then((response) async {
-
+    if( _key.currentState.validate()) {
+      var url = "${Network.login}";
+      print(url);
+      http.post(
+          url,
+          headers: {"Accept": "application/json"},
+          body: {'email': email.text, 'password': password.text}).then((
+          response) async {
         var token = jsonDecode(response.body)['token'];
         var email = jsonDecode(response.body)['email'];
         var id = jsonDecode(response.body)['userId'];
-      if(token != null) {
-        // Here details need to store in sharedpref for further use
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', token);
-        prefs.setInt('id', id);
-        prefs.setString('email', email);
+        if (token != null) {
+          // Here details need to store in sharedpref for further use
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', token);
+          prefs.setInt('id', id);
+          prefs.setString('email', email);
 
-        http.get("${Network.url}",
-            headers: {"Accept":"application/json", 'Authorization':token}).then((y){
+          http.get("${Network.url}",
+              headers: {"Accept": "application/json", 'Authorization': token})
+              .then((y) {
+            Navigator.pushReplacement(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => new Home()));
+          }).catchError((ex) {
+            print(ex.toString());
+          });
+        } else {
+          mScaffoldState.currentState.showSnackBar(
+            SnackBar(
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 3),
+                content: Text('Login Failed')),
+          );
+        }
+      }).catchError((e) {
+        mScaffoldState.currentState.showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+              content: Text('ERROR')),
+        );
+      });
+    }
 
-          Navigator.pushReplacement(
-              context,
-              new MaterialPageRoute(
-                  builder: (BuildContext context) => new Home()));
-        }).catchError((ex){
-          print(ex.toString());
-        });
+  }
 
-      }else{
-        print(url);
-      }
-    }).catchError((e){
-      print(e.toString());
-    });
+  String validateEmail(String value) {
+    if(value.length < 3)
+    {
+      return "Email is Required";
+    }else{
+      return null;
+    }
+  }
 
+  String validatePassword(String value) {
+    if(value.length < 3)
+    {
+      return "Password is Required";
+    }else{
+      return null;
+    }
   }
 }

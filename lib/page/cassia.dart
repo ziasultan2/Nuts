@@ -11,6 +11,9 @@ class Cassia extends StatefulWidget {
 }
 
 class _CassiaState extends State<Cassia> {
+
+  final GlobalKey<ScaffoldState> mScaffoldState = new GlobalKey<ScaffoldState>();
+
   GlobalKey<FormState> _key = new GlobalKey();
 
   final price = TextEditingController();
@@ -45,6 +48,7 @@ class _CassiaState extends State<Cassia> {
       ),
 
       home: Scaffold(
+        key: mScaffoldState,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           centerTitle: true,
@@ -72,7 +76,7 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            'PRICE', style: TextStyle(fontSize: 20.0,
+                            'PRICE', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -85,7 +89,7 @@ class _CassiaState extends State<Cassia> {
                             validator: validatePrice,
                             controller: price,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -93,7 +97,7 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 2,
                           child: Text('MT in USD', style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.green,),
                           textAlign: TextAlign.center,),
@@ -106,7 +110,7 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 2,
                           child: Text('QUANTITY', style: TextStyle(
-                              fontSize: 20.0,
+                              fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -115,17 +119,18 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 3,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             validator: validateQuantity,
                             controller: quantity,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                                 textAlign: TextAlign.center,
                           ),
                         ),
                         SizedBox(width: 10.0,),
                         Expanded(
                           flex: 2,
-                          child: Text('MT', style: TextStyle(fontSize: 20.0,
+                          child: Text('MT', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                           textAlign: TextAlign.center,),
@@ -137,7 +142,7 @@ class _CassiaState extends State<Cassia> {
                       children: <Widget>[
                         Expanded(
                           flex: 2,
-                          child: Text('SALES', style: TextStyle(fontSize: 20.0,
+                          child: Text('SALES', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -146,16 +151,17 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 3,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             validator: validateSales,
                             controller: sales,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                           textAlign: TextAlign.center,),
                         ),
                         SizedBox(width: 10.0,),
                         Expanded(
                           flex: 2,
-                          child: Text('Tk/Kg', style: TextStyle(fontSize: 20.0,
+                          child: Text('Tk/Kg', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                           textAlign: TextAlign.center,),
@@ -189,7 +195,8 @@ class _CassiaState extends State<Cassia> {
                         flex: 2,
                         child: Text('$_margin',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green),),
+                              fontSize: 20.0, color: Colors.green),
+                        textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
@@ -200,7 +207,6 @@ class _CassiaState extends State<Cassia> {
                     ],
                   ),
                   Row(
-
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
@@ -216,7 +222,8 @@ class _CassiaState extends State<Cassia> {
                         flex: 2,
                         child: Text('$_value',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green),),
+                              fontSize: 20.0, color: Colors.green),
+                          textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
@@ -241,7 +248,8 @@ class _CassiaState extends State<Cassia> {
                         flex: 2,
                         child: Text('$_cost',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green),),
+                              fontSize: 20.0, color: Colors.green),
+                          textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
@@ -259,54 +267,26 @@ class _CassiaState extends State<Cassia> {
                 height: 100.0,
               ),
 
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: FlatButton(
-                        color: Colors.green,
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                        child: Text('Clear', style: TextStyle(fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),),
-                        onPressed: () {
-                          setState(() {
-                            price.text = "";
-                            quantity.text = "";
-                            sales.text = "";
-                            _margin = "";
-                            _value = "";
-                            _cost = "";
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                        color: Colors.green,
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                        child: Text('SHOW', style: TextStyle(fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),),
-                        onPressed: _result,
-                      ),
-                    ),
-                    Expanded(
-                      child: FlatButton(
-                        color: Colors.green,
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                        child: Text('SAVE', style: TextStyle(fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),),
-                        onPressed: _save,
-                      ),
-                    )
-                  ],
-                )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _clear,
+                      child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                ],
               ),
 
               Divider(
@@ -393,7 +373,36 @@ class _CassiaState extends State<Cassia> {
   }
 
   void _save() {
+    var url = Network.save_cassia;
+    http.post(
+      url,
+        headers: {"Accept": "application/json", "Authorization": _token},
+        body: {
+          "user_id" : _id.toString(),
+          "price" : price.toString(),
+          "quantity" : quantity.toString(),
+          "sales" : sales.toString()
+        }
+    ).then((response){
+      mScaffoldState.currentState.showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+            content: Text('Saved Successfully')),
+      );
+    });
 
   }
 
+
+  void _clear() {
+    setState(() {
+      price.text = "";
+      quantity.text = "";
+      sales.text = "";
+      _margin = "";
+      _value = "";
+      _cost = "";
+    });
+  }
 }

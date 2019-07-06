@@ -14,6 +14,8 @@ class Almond extends StatefulWidget {
 
 class _AlmondState extends State<Almond> {
 
+  final GlobalKey<ScaffoldState> mScaffoldState = new GlobalKey<ScaffoldState>();
+
   String _selectType;
   List type=[];
   List size=[];
@@ -21,16 +23,23 @@ class _AlmondState extends State<Almond> {
   @override
   void initState() {
     super.initState();
-    _getToken();
-    this._getId();
-    this.getType();
-    this.getSize();
+     getItems();
   }
+   getItems() async{
+    _token = await _getToken();
+    _id = await _getId();
 
-  var _token;
+    size = await getSize();
+    type = await getType();
+    setState(() {
+
+    });
+   }
   var _id;
+  var _token;
 
-  Future<String> getType() async {
+
+  Future<List> getType() async {
 
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? 0;
@@ -39,13 +48,12 @@ class _AlmondState extends State<Almond> {
         .get(url, headers: {"Accept": "application/json","Authorization": token});
     var resBody = json.decode(res.body);
     print(resBody);
-    setState(() {
-      type = resBody;
-    });
+
+    return resBody;
   }
 
 
-  Future<String> getSize() async {
+  Future<List> getSize() async {
 
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? 0;
@@ -54,9 +62,8 @@ class _AlmondState extends State<Almond> {
         .get(url, headers: {"Accept": "application/json","Authorization": token});
     var resBody = json.decode(res.body);
     print(resBody);
-    setState(() {
-      size = resBody;
-    });
+
+    return resBody;
   }
 
   GlobalKey<FormState> _key = new GlobalKey();
@@ -90,6 +97,7 @@ class _AlmondState extends State<Almond> {
       ),
 
       home:  Scaffold(
+        key: mScaffoldState,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           centerTitle: true,
@@ -99,17 +107,19 @@ class _AlmondState extends State<Almond> {
             )
         ),
         body:
-           size.length > 1 && type.length >  1  ?
+           size.length > 0 && type.length >  0  ?
 
           Container(
               //margin: EdgeInsets.only(top: 30.0, left: 20.0, right: ),
               padding: EdgeInsets.only(top: 30, bottom: 30, left: 30, right:30),
 
-            child: Form(
-              key: _key,
-              autovalidate: _validate,
-              child:
-                  ListView(
+            child: ListView(
+              children: <Widget>[
+                Form(
+                  key: _key,
+                  autovalidate: _validate,
+                  child:
+                  Column(
                     children: <Widget>[
                       Row(
                         children: <Widget>[
@@ -135,6 +145,7 @@ class _AlmondState extends State<Almond> {
                                       _myType = newVal;
                                     });
                                   },
+                                  hint: Text("SELECT TYPE"),
                                   value: _myType,
                                 ),
                               )
@@ -160,10 +171,10 @@ class _AlmondState extends State<Almond> {
                               Center(
                                 child: new DropdownButtonFormField(
                                   validator: dropDownValidator,
-                                  items: size.map((sze) {
+                                  items: size.map((item) {
                                     return new DropdownMenuItem(
-                                      child: new Text(sze),
-                                      value: sze,
+                                      child: new Text(item),
+                                      value: item,
                                     );
                                   }).toList(),
                                   onChanged: (newVal) {
@@ -306,76 +317,37 @@ class _AlmondState extends State<Almond> {
                       ),
 
                       Divider(height: 80.0,),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child:  Row(
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.green
-                              ),
-                              child: FlatButton(
-                                padding: EdgeInsets.only(
-                                    top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                                child: Text('SAVE', style: TextStyle(fontSize: 25.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),),
-                                onPressed: _save,
-                              ),
-                            ),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.green
-                              ),
-                              child: FlatButton(
-                                padding: EdgeInsets.only(
-                                    top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                                child: Text('SHOW', style: TextStyle(fontSize: 25.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),),
-                                onPressed: _result,
-                              ),
-                            ),
-
-                            Center(
-                                child: Row(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.green
-                                      ),
-                                      child: FlatButton(
-                                        padding: EdgeInsets.only(
-                                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                                        child: Text('Clear', style: TextStyle(fontSize: 25.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),),
-                                        onPressed: () {
-                                          setState(() {
-                                            price.text = "";
-                                            quantity.text = "";
-                                            sales.text = "";
-                                            _margin = '';
-                                            _value = '';
-                                            _cost = '';
 
 
-                                          });
-                                        },
-                                      ),
-                                    ),
+                    ],
 
-                                  ],
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
+
+                  ),
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _clear,
+                        child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                  ],
+                ),
 
               ],
-
-            ),
             ),)
 
 
@@ -424,6 +396,7 @@ class _AlmondState extends State<Almond> {
           url,
           headers: {"Accept": "application/json", "Authorization": _token},
           body: {
+            'user_id' : _id.toString(),
             'price': price.text,
             'quantity': quantity.text,
             'sales': sales.text,
@@ -447,18 +420,19 @@ class _AlmondState extends State<Almond> {
 
   } // result
 
-  _getToken() async {
+  Future<String>_getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _token = prefs.getString('token');
-    });
+
+
+    return  prefs.getString('token');
   }
 
-  _getId() async {
+
+  Future<int>_getId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _token = (prefs.getString('token'));
-    });
+
+
+    return  prefs.getInt('id');
   }
 
   void changedType(String selectedType) {
@@ -469,6 +443,33 @@ class _AlmondState extends State<Almond> {
 
   void _save() {
 
+    var url = Network.save_almond;
+    http.post(
+      url,
+      headers: {"Accept": "application/json", "Authorization": _token},
+      body: {
+        "user_id" : _id.toString(),
+        "type" : "$_myType",
+        "size" : "$_mySize",
+        "price" : "$price",
+        "quantity" : "$quantity",
+        "sales" : "$sales"
+      }
+
+    ).then((response){
+      var res = jsonDecode(response.body)['response'];
+      if(res == 'success')
+      {
+        mScaffoldState.currentState.showSnackBar(
+          SnackBar(
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+              content: Text('Saved Successfully')),
+        );
+      }else{
+        print(res);
+      }
+    });
 
   }
 
@@ -480,5 +481,17 @@ class _AlmondState extends State<Almond> {
       }else{
       return null;
     }
+  }
+
+  void _clear() {
+    setState(() {
+      price.text = "";
+      quantity.text = "";
+      sales.text = "";
+      _margin = '';
+      _value = '';
+      _cost = '';
+    });
+
   }
 }

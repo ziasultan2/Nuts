@@ -8,6 +8,7 @@ import 'package:sohel_nuts/page/cassia.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cashew.dart';
+import 'login.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -39,7 +40,6 @@ class _HomeState extends State<Home> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,6 +50,15 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.green,
           title: Text('HOME'),
           automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.power_settings_new, size: 30,),
+              onPressed: () {
+                _showDialog();
+              },
+            ),
+          ],
+
         ),
         body:
             Container(
@@ -63,9 +72,9 @@ class _HomeState extends State<Home> {
                       child:
 
                       ListTile(
-                        title: Text(data[index], style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold,),),
+                        title: Text(data[index], style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,),),
                         trailing: Container(
-                          child: Icon(Icons.arrow_forward_ios, size: 40.0,),
+                          child: Icon(Icons.arrow_forward_ios, size: 25.0,),
                         ),
                         onTap: (){
                           var item = data.indexOf(data[index]);
@@ -91,5 +100,39 @@ class _HomeState extends State<Home> {
             
         ),
       );
+  }
+
+
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(50.0),
+          title: Text('WARNING', style: TextStyle(fontSize: 50.0, color: Colors.red), textAlign: TextAlign.center,),
+          content: new Text("Are You Sure You Want To Exit?", style: TextStyle(fontSize :30.0, color: Colors.orange), textAlign: TextAlign.center,),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes", textAlign: TextAlign.center,),
+              onPressed: () async{
+                final prefs = await SharedPreferences.getInstance();
+                prefs.remove('token');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+              },
+            ),
+            new FlatButton(
+              child: new Text("NO", textAlign: TextAlign.center,),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

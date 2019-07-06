@@ -33,8 +33,8 @@ class Network
   *  save data
    */
   static var save_cashew = '$url/save-cashew';
-
-
+  static var save_almond = '$url/save-almond';
+  static var save_cassia= '$url/save-cassia';
 
 
 }

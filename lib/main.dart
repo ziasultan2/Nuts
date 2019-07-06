@@ -40,8 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
       {
         Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
       }else{
+      //  Navigator.push(context, MaterialPageRoute(builder: (context) => Almond()));
         Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-        //Navigator.push(context, MaterialPageRoute(builder: (context) => TypeTest()));
       }
 
 

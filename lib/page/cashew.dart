@@ -13,6 +13,8 @@ class Cashew extends StatefulWidget {
 
 class _CashewState extends State<Cashew> {
 
+  final GlobalKey<ScaffoldState> mScaffoldState = new GlobalKey<ScaffoldState>();
+
   GlobalKey<FormState> _key = new GlobalKey();
 
   bool _validate = false;
@@ -102,10 +104,11 @@ class _CashewState extends State<Cashew> {
         primarySwatch: Colors.green,
         // Your app THEME-COLOR
         textTheme: new TextTheme(
-          body1: new TextStyle(color: Colors.green, fontSize: 25.0),
+          body1: new TextStyle(color: Colors.green, fontSize: 16.0),
         ),
       ),
       home: Scaffold(
+        key: mScaffoldState,
         appBar: AppBar(
           automaticallyImplyLeading: true,
           centerTitle: true,
@@ -410,6 +413,7 @@ class _CashewState extends State<Cashew> {
                         Container(
                           width: 100.0,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             validator: validatePrice,
                             controller: salesPrice,
                             style: TextStyle(fontSize: 30.0, color: Colors.green),
@@ -423,9 +427,6 @@ class _CashewState extends State<Cashew> {
                   ],
                 ),
               ),
-
-
-
 
 
               Container(
@@ -615,27 +616,32 @@ class _CashewState extends State<Cashew> {
       Network.save_cashew,
       headers: {"Accept": "application/json", "Authorization": _token},
       body: {
-        "user_id" : '1',
-        "item1" : "12ds",
-        "quantity1" : qty1.toString(),
-        "price1" : pr1.toString(),
-        "item2" : "12ds",
-        "quantity2" : qty2.toString(),
-        "price2" : pr2.toString(),
-        "item3" : "12ds",
-        "quantity3" : qty3.toString(),
-        "price3" : pr3.toString(),
-        "item4" : "12ds",
-        "quantity4" : qty4.toString(),
-        "price4" : pr4.toString(),
-        "sales" : sales.toString()
+        "user_id" : _id.toString(),
+        "item1" : "$item1",
+        "quantity1" : "$qty1",
+        "price1" : "$pr1",
+        "item2" : "$item2",
+        "quantity2" : "$qty2",
+        "price2" : "$pr2",
+        "item3" : "$item3",
+        "quantity3" : "$qty3",
+        "price3" : "$pr3",
+        "item4" : "$item4",
+        "quantity4" : "$qty4",
+        "price4" : "$pr4",
+        "sales" : "$sales"
       }
     ).then((response) async{
-      print(response);
-//      final snackBar = SnackBar(
-//        content: Text('Yay! A SnackBar!'),
-//      );
-//      Scaffold.of(context).showSnackBar(snackBar);
+      var res = jsonDecode(response.body)['response'];
+        if(res == 'success')
+        {
+          mScaffoldState.currentState.showSnackBar(
+            SnackBar(
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 3),
+                content: Text('Saved Successfully')),
+          );
+        }
     }).catchError((e) {
       print(e.toString());
     });
