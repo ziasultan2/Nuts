@@ -54,280 +54,268 @@ class _CassiaState extends State<Cassia> {
             ),
         ),
         body: Container(
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("images/bg.jpg"), fit: BoxFit.cover,),),
-          child: Container(
-            margin: EdgeInsets.all(20.0),
-            decoration: new BoxDecoration(color: Colors.white),
+          padding: EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
+//          decoration: new BoxDecoration(
+//            image: new DecorationImage(
+//              image: new AssetImage("images/bg.jpg"), fit: BoxFit.cover,),),
 
-            child: Container(
-              margin: EdgeInsets.only(top: 50.0, left: 10.0, right: 10.0),
-              child: Form(
+          child: ListView(
+            children: <Widget>[
+              Form(
                 key: _key,
                 autovalidate: _validate,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'PRICE', style: TextStyle(fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
-                                textAlign: TextAlign.right,),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              flex: 2,
-                              child: TextFormField(
-                                validator: validatePrice,
-                                maxLength: 6,
-                                controller: price,
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.green),),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              child: Text('MT in USD', style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green,),),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 2,
-                              child: Text('QUANTITY', style: TextStyle(
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
-                                textAlign: TextAlign.right,),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              flex: 2,
-                              child: TextFormField(
-                                validator: validateQuantity,
-                                maxLength: 6,
-                                controller: quantity,
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.green),),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              child: Text('MT', style: TextStyle(fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 2,
-                              child: Text('SALES', style: TextStyle(fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
-                                textAlign: TextAlign.right,),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              flex: 2,
-                              child: TextFormField(
-                                validator: validateSales,
-                                maxLength: 6,
-                                controller: sales,
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.green),),
-                            ),
-                            SizedBox(width: 10.0,),
-                            Expanded(
-                              child: Text('Tk/Kg', style: TextStyle(fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ), // show input
-                    SizedBox(height: 50.0,),
-
-
-                    /*
-                *  Show Data
-                */
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Text('MARGIN', style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                                  textAlign: TextAlign.right,),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                flex: 2,
-                                child: Text('$_margin',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.green),),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                child: Text('TK', style: TextStyle(fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,),),
-                              ),
-                            ],
-                          ),
-                          Row(
-
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Text('VALUE', style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                                  textAlign: TextAlign.right,),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                flex: 2,
-                                child: Text('$_value',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.green),),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                child: Text('TK', style: TextStyle(fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Text('COST', style: TextStyle(fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),
-                                  textAlign: TextAlign.right,),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                flex: 2,
-                                child: Text('$_cost',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.green),),
-                              ),
-                              SizedBox(width: 10.0,),
-                              Expanded(
-                                child: Text('Tk', style: TextStyle(fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green),),
-                              ),
-                            ],
-                          ),
-
-                        ],
-                      ),
-                    ), // show data
-
-                    /*
-                *  Button
-                */
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green
-                          ),
-                          child: FlatButton(
-                            padding: EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                            child: Text('Clear', style: TextStyle(fontSize: 25.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),),
-                            onPressed: () {
-                              setState(() {
-                                price.text = "";
-                                quantity.text = "";
-                                sales.text = "";
-                              });
-                            },
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'PRICE', style: TextStyle(fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                            textAlign: TextAlign.center,),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validatePrice,
+                            controller: price,
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.green),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(color: Colors.grey, width: 5.0),
-                              )
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green
-                          ),
-                          child: FlatButton(
-                            padding: EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                            child: Text('SHOW', style: TextStyle(fontSize: 25.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),),
-                            onPressed: _result,
-                          ),
-                        ),
-
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                left: BorderSide(color: Colors.grey, width: 5.0),
-                              )
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green
-                          ),
-                          child: FlatButton(
-                            padding: EdgeInsets.only(
-                                top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
-                            child: Text('SAVE', style: TextStyle(fontSize: 25.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),),
-                            onPressed: _save,
-                          ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 2,
+                          child: Text('MT in USD', style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,),
+                          textAlign: TextAlign.center,),
                         ),
                       ],
-                    ), // button
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Text('QUANTITY', style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                            textAlign: TextAlign.center,),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            validator: validateQuantity,
+                            controller: quantity,
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.green),
+                                textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 2,
+                          child: Text('MT', style: TextStyle(fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                          textAlign: TextAlign.center,),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Text('SALES', style: TextStyle(fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                            textAlign: TextAlign.center,),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            validator: validateSales,
+                            controller: sales,
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.green),
+                          textAlign: TextAlign.center,),
+                        ),
+                        SizedBox(width: 10.0,),
+                        Expanded(
+                          flex: 2,
+                          child: Text('Tk/Kg', style: TextStyle(fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                          textAlign: TextAlign.center,),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
 
-            ),
-          ),
+              Divider(
+                height: 70.0,
+              ),
+
+              Column(
+                children: <Widget>[
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Text('MARGIN', style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                          textAlign: TextAlign.right,),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        flex: 2,
+                        child: Text('$_margin',
+                          style: TextStyle(
+                              fontSize: 20.0, color: Colors.green),),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        child: Text('TK', style: TextStyle(fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,),),
+                      ),
+                    ],
+                  ),
+                  Row(
+
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Text('VALUE', style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                          textAlign: TextAlign.right,),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        flex: 2,
+                        child: Text('$_value',
+                          style: TextStyle(
+                              fontSize: 20.0, color: Colors.green),),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        child: Text('TK', style: TextStyle(fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Text('COST', style: TextStyle(fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                          textAlign: TextAlign.right,),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        flex: 2,
+                        child: Text('$_cost',
+                          style: TextStyle(
+                              fontSize: 20.0, color: Colors.green),),
+                      ),
+                      SizedBox(width: 10.0,),
+                      Expanded(
+                        child: Text('Tk', style: TextStyle(fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+
+              Divider(
+                height: 100.0,
+              ),
+
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FlatButton(
+                        color: Colors.green,
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
+                        child: Text('Clear', style: TextStyle(fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),),
+                        onPressed: () {
+                          setState(() {
+                            price.text = "";
+                            quantity.text = "";
+                            sales.text = "";
+                            _margin = "";
+                            _value = "";
+                            _cost = "";
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        color: Colors.green,
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
+                        child: Text('SHOW', style: TextStyle(fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),),
+                        onPressed: _result,
+                      ),
+                    ),
+                    Expanded(
+                      child: FlatButton(
+                        color: Colors.green,
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 45.0, right: 45.0),
+                        child: Text('SAVE', style: TextStyle(fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),),
+                        onPressed: _save,
+                      ),
+                    )
+                  ],
+                )
+              ),
+
+              Divider(
+                height: 50.0,
+              ),
+
+            ],
+          )
+
         ),
       ),
     );
@@ -338,7 +326,7 @@ class _CassiaState extends State<Cassia> {
   String validatePrice(String value) {
     if(value.length == 0)
     {
-      return "Name is Required";
+      return "Oruce is Required";
     }else{
       return null;
     }

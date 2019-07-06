@@ -13,6 +13,10 @@ class Cashew extends StatefulWidget {
 
 class _CashewState extends State<Cashew> {
 
+  GlobalKey<FormState> _key = new GlobalKey();
+
+  bool _validate = false;
+
   var _token;
   var _id;
 
@@ -98,7 +102,7 @@ class _CashewState extends State<Cashew> {
         primarySwatch: Colors.green,
         // Your app THEME-COLOR
         textTheme: new TextTheme(
-          body1: new TextStyle(color: Colors.green, fontSize: 30.0),
+          body1: new TextStyle(color: Colors.green, fontSize: 25.0),
         ),
       ),
       home: Scaffold(
@@ -113,192 +117,316 @@ class _CashewState extends State<Cashew> {
         body:
         item.length  > 0 ?
         Container(
-          padding: EdgeInsets.only(top: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+          child: ListView(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text('Item',),
-                  Text('Quantity'),
-                  Text('Price'),
-                  Text('Amount'),
+                  Expanded(
+                    flex: 3,
+                    child: Text('Item',),
+                  ),
+
+                  Spacer(),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text('Quantity'),
+                  ),
+
+                  Spacer(),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text('Price'),
+                  ),
+
+                  Spacer(),
+
+                  Expanded(
+                    flex: 3,
+                    child: Text('Amount'),
+                  ),
+
                 ],
               ),
 
               Divider(height: 20.0,),
+              Form(
+                key: _key,
+                autovalidate: _validate,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
+                          child: new DropdownButtonFormField(
+                            validator: _dropdownValidate,
+                            items: item.map((item) {
+                              return new DropdownMenuItem(
+                                child: new Text(item),
+                                value: item,
+                              );
+                            }).toList(),
+                            onChanged: (newVal) {
+                              setState(() {
+                                item1 = newVal;
+                              });
+                            },
+                            value: item1,
+                            hint: Text("SELECT"),
+                          ),
+                        ),
+
+                        Spacer(),
+
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validateQuantity,
+                            controller: quantity1,
+                            style: TextStyle(color: Colors.green, fontSize: 20.0),
+                          ),
+                        ),
+
+                        Spacer(),
+
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validatePrice,
+                            controller: price1,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 2,
+                          child: Text('$_amount1', style: TextStyle(fontSize: 20.0), textAlign: TextAlign.left,),
+                        ),
+
+                      ],
+                    ), //1
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
+                          child: new DropdownButtonFormField(
+                            validator: _dropdownValidate,
+                            items: item.map((item) {
+                              return new DropdownMenuItem(
+                                child: new Text(item),
+                                value: item,
+                              );
+                            }).toList(),
+                            onChanged: (newVal) {
+                              setState(() {
+                                item2 = newVal;
+                              });
+                            },
+                            value: item2,
+                            hint: Text("SELECT"),
+                          ),
+                        ),
+
+                        Spacer(),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validateQuantity,
+                            controller: quantity2,
+                            style: TextStyle(color: Colors.green, fontSize: 20.0),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validatePrice,
+                            controller: price2,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 2,
+                          child: Text('$_amount2', style: TextStyle(fontSize: 20.0),),
+                        ),
+
+                      ],
+                    ),//2
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
+                          child: new DropdownButtonFormField(
+                            validator: _dropdownValidate,
+                            items: item.map((item) {
+                              return new DropdownMenuItem(
+                                child: new Text(item),
+                                value: item,
+                              );
+                            }).toList(),
+                            onChanged: (newVal) {
+                              setState(() {
+                                item3 = newVal;
+                              });
+                            },
+                            value: item3,
+                            hint: Text("SELECT"),
+                          ),
+                        ),
+
+                        Spacer(),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validateQuantity,
+                            controller: quantity3,
+                            style: TextStyle(color: Colors.green, fontSize: 20.0),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validatePrice,
+                            controller: price3,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 2,
+                          child: Text('$_amount3', style: TextStyle(fontSize: 20.0),),
+                        ),
+
+                      ],
+                    ),//3
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 3,
+                          child: new DropdownButtonFormField(
+                            validator: _dropdownValidate,
+                            items: item.map((item) {
+                              return new DropdownMenuItem(
+                                child: new Text(item),
+                                value: item,
+                              );
+                            }).toList(),
+                            onChanged: (newVal) {
+                              setState(() {
+                                item4 = newVal;
+                              });
+                            },
+                            value: item4,
+                            hint: Text("SELECT"),
+
+                          ),
+                        ),
+
+                        Spacer(),
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validateQuantity,
+                            controller: quantity4,
+                            style: TextStyle(color: Colors.green, fontSize: 20.0),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 3,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            validator: validatePrice,
+                            controller: price4,
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+
+                        Expanded(
+                          flex: 2,
+                          child: Text('$_amount4', style: TextStyle(fontSize: 20.0),),
+                        ),
+
+                      ],
+                    ),//4
+
+                    Divider(height: 50.0,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text('TOTAL', style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text('$_totalQuantity'),
+                        Text('$_totalPrice'),
+                        Text('$_totalAmount'),
+                      ],
+                    ), // Total
+
+                    Divider(height: 60,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text('Sales Price'),
+                        Container(
+                          width: 100.0,
+                          child: TextFormField(
+                            validator: validatePrice,
+                            controller: salesPrice,
+                            style: TextStyle(fontSize: 30.0, color: Colors.green),
+                          ),
+                        )
+                      ],
+                    ),  // Sales price
 
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    child: new DropdownButton(
-                      items: item.map((item) {
-                        return new DropdownMenuItem(
-                          child: new Text(item),
-                          value: item,
-                        );
-                      }).toList(),
-                      onChanged: (newVal) {
-                        setState(() {
-                          item1 = newVal;
-                        });
-                      },
-                      value: item1,
-                    ),
-                  ),
 
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: quantity1,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: price1,
-                    ),
-                  ),
-
-                  Text('$_amount1'),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    child: new DropdownButton(
-                      items: item.map((item) {
-                        return new DropdownMenuItem(
-                          child: new Text(item),
-                          value: item,
-                        );
-                      }).toList(),
-                      onChanged: (newVal) {
-                        setState(() {
-                          item2 = newVal;
-                        });
-                      },
-                      value: item2,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: quantity2,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: price2,
-                    ),
-                  ),
 
-                  Text('$_amount2'),
-                ],
-              ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    child: new DropdownButton(
-                      items: item.map((item) {
-                        return new DropdownMenuItem(
-                          child: new Text(item),
-                          value: item,
-                        );
-                      }).toList(),
-                      onChanged: (newVal) {
-                        setState(() {
-                          item3 = newVal;
-                        });
-                      },
-                      value: item3,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: quantity3,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextFormField(
-                      controller: price3,
-                    ),
-                  ),
 
-                  Text('$_amount3'),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    child: new DropdownButton(
-                      items: item.map((item) {
-                        return new DropdownMenuItem(
-                          child: new Text(item),
-                          value: item,
-                        );
-                      }).toList(),
-                      onChanged: (newVal) {
-                        setState(() {
-                          item4 = newVal;
-                        });
-                      },
-                      value: item4,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextField(
-                      controller: quantity4,
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    child: TextField(
-                      controller: price4,
-                    ),
-                  ),
 
-                  Text('$_amount4'),
-                ],
-              ),
-
-              Divider(height: 50.0,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text('TOTAL', style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text('$_totalQuantity'),
-                  Text('$_totalPrice'),
-                  Text('$_totalAmount'),
-                ],
-              ), // Total
-
-              Divider(height: 60,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text('Sales Price'),
-                  Container(
-                    width: 100.0,
-                    child: TextFormField(
-                      controller: salesPrice,
-                    ),
-                  )
-                ],
-              ),// Sales price
 
               Container(
                 margin: EdgeInsets.only(top: 50.0, left: 50.0),
@@ -337,23 +465,37 @@ class _CashewState extends State<Cashew> {
               ),
 
               Container(
-                height: 80.0,
+                height: 50.0,
               ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  FlatButton( onPressed: _clear ,child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-                  FlatButton( onPressed: _show ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-                  FlatButton( onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _clear,
+                      child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _show ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
                 ],
-
               ),
 
+              Divider(
+                height: 40.0,
+              ),
 
             ],
           ),
-
         ) :
             Container(
               child: Center(
@@ -364,6 +506,7 @@ class _CashewState extends State<Cashew> {
     );
 
   }
+  
 
 
 
@@ -394,6 +537,11 @@ class _CashewState extends State<Cashew> {
       value = '';
       cost = '';
 
+      item1 =null;
+      item2 =null;
+      item3 =null;
+      item4 =null;
+
     });
 
   }
@@ -403,61 +551,62 @@ class _CashewState extends State<Cashew> {
 
     setState(() {
 
-      qty1 =   int.tryParse(quantity1.text);
-      qty2 =   int.tryParse(quantity2.text);
-      qty3 =   int.tryParse(quantity3.text);
-      qty4 =   int.tryParse(quantity4.text);
+      if( _key.currentState.validate()) {
+        qty1 = int.tryParse(quantity1.text);
+        qty2 = int.tryParse(quantity2.text);
+        qty3 = int.tryParse(quantity3.text);
+        qty4 = int.tryParse(quantity4.text);
 
-      pr1 = double.tryParse(price1.text);
-      pr2 = double.tryParse(price2.text);
-      pr3 = double.tryParse(price3.text);
-      pr4 = double.tryParse(price4.text);
+        pr1 = double.tryParse(price1.text);
+        pr2 = double.tryParse(price2.text);
+        pr3 = double.tryParse(price3.text);
+        pr4 = double.tryParse(price4.text);
 
-      salesPrice.text;
-      sales = double.tryParse(salesPrice.text);
+        salesPrice.text;
+        sales = double.tryParse(salesPrice.text);
 
-      _amount1 = qty1 * pr1;
-      _amount2 = qty2 * pr2;
-      _amount3 = qty3 * pr3;
-      _amount4 = qty4 * pr4;
+        _amount1 = qty1 * pr1;
+        _amount2 = qty2 * pr2;
+        _amount3 = qty3 * pr3;
+        _amount4 = qty4 * pr4;
 
-      _totalQuantity = qty1 + qty2 + qty3 + qty4;
-      _totalPrice = (pr1+pr2+pr3+pr4)/4;
-      _totalAmount = _amount1 + _amount2 + _amount3 + _amount4;
+        _totalQuantity = qty1 + qty2 + qty3 + qty4;
+        _totalPrice = (pr1 + pr2 + pr3 + pr4) / 4;
+        _totalAmount = _amount1 + _amount2 + _amount3 + _amount4;
 
-      print('hello');
-      print(item1 + item2 + item3 + item4);
+        print(item1 + item2 + item3 + item4);
 
-      http.post(
-          Network.cassia_result,
-          headers: {"Accept": "application/json", "Authorization": _token},
-          body: {
-            "price" : "$_totalAmount",
-            "sales" : salesPrice.text
-          }
-      ).then((response) async{
-        var _margin = jsonDecode(response.body)['margin'];
-        var _value = jsonDecode(response.body)['value'];
-        var _cost = jsonDecode(response.body)['cost'];
+        http.post(
+            Network.cassia_result,
+            headers: {"Accept": "application/json", "Authorization": _token},
+            body: {
+              "price": "$_totalAmount",
+              "sales": salesPrice.text
+            }
+        ).then((response) async {
+          var _margin = jsonDecode(response.body)['margin'];
+          var _value = jsonDecode(response.body)['value'];
+          var _cost = jsonDecode(response.body)['cost'];
 
-        setState(() {
-          margin = _margin.toStringAsFixed(2);
-          value = _value.toStringAsFixed(2);
-          cost = _cost.toStringAsFixed(2);
+          setState(() {
+            margin = _margin.toStringAsFixed(2);
+            value = _value.toStringAsFixed(2);
+            cost = _cost.toStringAsFixed(2);
+          });
+        }).catchError((e) {
+          print(e.toString());
         });
-      }).catchError((e) {
-        print(e.toString());
-      });
-
-
-
+      }else{
+        setState(){
+          _validate = true;
+        }
+      }
 
     });
 
     // http request
 
   }
-
 
 
   void _save() {
@@ -508,5 +657,28 @@ class _CashewState extends State<Cashew> {
   }
 
 
+  String validateQuantity(String value) {
+    if(value.length == 0)
+    {
+      return "Quantity is Required";
+    }else{
+      return null;
+    }
+  }
 
+  String validatePrice(String value) {
+    if(value.length == 0)
+    {
+      return "Price is Required";
+    }else{
+      return null;
+    }
+  }
+
+  String _dropdownValidate(value) {
+    if(value == null)
+      {
+        return "Please select a item ";
+      }
+  }
 }
