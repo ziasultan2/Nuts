@@ -164,7 +164,7 @@ class _CashewState extends State<Cashew> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
+                        Expanded(
                           flex: 3,
                           child: new DropdownButtonFormField(
                             validator: _dropdownValidate,
@@ -180,7 +180,7 @@ class _CashewState extends State<Cashew> {
                               });
                             },
                             value: item1,
-                            hint: Text("SELECT", style: TextStyle(fontSize: 15.0),),
+                            hint: Text("SELECT"),
                           ),
                         ),
 
@@ -223,7 +223,7 @@ class _CashewState extends State<Cashew> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
+                        Expanded(
                           flex: 3,
                           child: new DropdownButtonFormField(
                             validator: _dropdownValidate,
@@ -239,7 +239,7 @@ class _CashewState extends State<Cashew> {
                               });
                             },
                             value: item2,
-                            hint: Text("SELECT", style: TextStyle(fontSize: 15.0),),
+                            hint: Text("SELECT"),
                           ),
                         ),
 
@@ -280,7 +280,7 @@ class _CashewState extends State<Cashew> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
+                        Expanded(
                           flex: 3,
                           child: new DropdownButtonFormField(
                             validator: _dropdownValidate,
@@ -296,7 +296,7 @@ class _CashewState extends State<Cashew> {
                               });
                             },
                             value: item3,
-                            hint: Text("SELECT", style: TextStyle(fontSize: 15.0),),
+                            hint: Text("SELECT"),
                           ),
                         ),
 
@@ -337,7 +337,7 @@ class _CashewState extends State<Cashew> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
+                        Expanded(
                           flex: 3,
                           child: new DropdownButtonFormField(
                             validator: _dropdownValidate,
@@ -353,7 +353,8 @@ class _CashewState extends State<Cashew> {
                               });
                             },
                             value: item4,
-                            hint: Text("SELECT", style: TextStyle(fontSize: 15.0),),
+                            hint: Text("SELECT"),
+
                           ),
                         ),
 
@@ -391,57 +392,37 @@ class _CashewState extends State<Cashew> {
                       ],
                     ),//4
 
-                    Divider(height: 20.0,),
+                    Divider(height: 50.0,),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Expanded(
-                          flex:3,
-                          child: Text('TOTAL', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: Text('$_totalQuantity', style: TextStyle(fontSize: 20.0),textAlign: TextAlign.center,),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: Text('$_totalPrice', style: TextStyle(fontSize: 20.0), textAlign: TextAlign.center,),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          flex: 2,
-                          child: Text('$_totalAmount',  style: TextStyle(fontSize: 20.0), textAlign: TextAlign.left,),
-                        ),
-
+                        Text('TOTAL', style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text('$_totalQuantity'),
+                        Text('$_totalPrice'),
+                        Text('$_totalAmount'),
                       ],
                     ), // Total
 
-                    Divider(height: 20,),
+                    Divider(height: 60,),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Expanded(
-                          flex: 2,
-                          child: Text('Sales Price', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),textAlign: TextAlign.right,),
-
-                        ),
-                        Spacer(),
-                        Expanded(
-                          flex: 1,
+                        Text('Sales Price'),
+                        Container(
+                          width: 100.0,
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             validator: validatePrice,
                             controller: salesPrice,
-                            style: TextStyle(fontSize: 20.0, color: Colors.green),
+                            style: TextStyle(fontSize: 30.0, color: Colors.green),
                           ),
-                        ),
-                        Expanded(flex: 1,child: Text(''),),
+                        )
                       ],
                     ),  // Sales price
+
+
 
                   ],
                 ),
@@ -449,41 +430,70 @@ class _CashewState extends State<Cashew> {
 
 
               Container(
-                padding: EdgeInsets.only(top: 25.0),
+                margin: EdgeInsets.only(top: 50.0, left: 50.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text('Margin', style: TextStyle(fontSize: 20.0),),
-                        Text('$margin', style: TextStyle(fontSize: 20.0),),
-                        Text('TK', style: TextStyle(fontSize: 20.0),),
+                        Text('Margin'),
+                        Text('$margin'),
+                        Text('TK'),
                       ],
                     ),
-                    Divider(height: 20.0,),
+                    Divider(height: 40.0,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text('Value', style: TextStyle(fontSize: 20.0),),
-                        Text('$value', style: TextStyle(fontSize: 20.0),),
-                        Text('TK', style: TextStyle(fontSize: 20.0),),
+                        Text('Value'),
+                        Text('$value'),
+                        Text('TK'),
                       ],
                     ),
-                    Divider(height: 20.0,),
+                    Divider(height: 40.0,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text('Cost', style: TextStyle(fontSize: 20.0),),
-                        Text('$cost', style: TextStyle(fontSize: 20.0),),
-                        Text('TK', style: TextStyle(fontSize: 20.0),),
+                        Text('Cost'),
+                        Text('$cost'),
+                        Text('TK'),
                       ],
                     ),
-                    Divider(height: 20.0,),
+                    Divider(height: 40.0,),
                   ],
                 ),
               ),
 
+              Container(
+                height: 50.0,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _clear,
+                      child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _show ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                ],
+              ),
+
+              Divider(
+                height: 40.0,
+              ),
 
             ],
           ),
@@ -492,33 +502,7 @@ class _CashewState extends State<Cashew> {
               child: Center(
                 child: CircularProgressIndicator(),
               ),
-            ),
-        bottomNavigationBar:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _clear,
-                child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _show ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-          ],
-        ),
+            )
       ),
     );
 

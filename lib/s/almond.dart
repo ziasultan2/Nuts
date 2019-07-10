@@ -267,13 +267,13 @@ class _AlmondState extends State<Almond> {
                       ),
 
                       Divider(
-                        height: 50.0,
+                        height: 150.0,
                       ),
 
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text('Margin', textAlign: TextAlign.right, style: TextStyle(fontSize: 25.0),),
+                            child: Text('Margin', textAlign: TextAlign.center, style: TextStyle(fontSize: 25.0),),
                           ),
                           Expanded(
                             flex: 2,
@@ -288,7 +288,7 @@ class _AlmondState extends State<Almond> {
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text('Value', textAlign: TextAlign.right, style: TextStyle(fontSize: 25.0),),
+                            child: Text('Value', textAlign: TextAlign.center, style: TextStyle(fontSize: 25.0),),
                           ),
                           Expanded(
                             flex: 2,
@@ -303,7 +303,7 @@ class _AlmondState extends State<Almond> {
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text('Cost', textAlign: TextAlign.right, style: TextStyle(fontSize: 25.0),),
+                            child: Text('Cost', textAlign: TextAlign.center, style: TextStyle(fontSize: 25.0),),
                           ),
                           Expanded(
                             flex: 2,
@@ -316,7 +316,7 @@ class _AlmondState extends State<Almond> {
                         ],
                       ),
 
-                      Divider(height: 40.0,),
+                      Divider(height: 80.0,),
 
 
                     ],
@@ -325,39 +325,34 @@ class _AlmondState extends State<Almond> {
                   ),
                 ),
 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _clear,
+                        child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                    Expanded(
+                      child:FlatButton(
+                        padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                        onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                    ),
+                  ],
+                ),
+
               ],
             ),)
 
 
           : Center(
           child: CircularProgressIndicator(),
-        ),
-
-        bottomNavigationBar:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _clear,
-                child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-          ],
         ),
       ),
     );
@@ -427,6 +422,8 @@ class _AlmondState extends State<Almond> {
 
   Future<String>_getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
     return  prefs.getString('token');
   }
 

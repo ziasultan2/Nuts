@@ -4,7 +4,9 @@ import 'package:sohel_nuts/network/network.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'home.dart';
+
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -26,8 +28,6 @@ class _LoginState extends State<Login> {
   final password = new TextEditingController();
 
   final _minimumPadding = 5.0;
-  bool isLoading = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,8 @@ class _LoginState extends State<Login> {
           automaticallyImplyLeading: false,
         ),
 
-        body:
-         Container(
-          margin: EdgeInsets.only(left:_minimumPadding*8, right: _minimumPadding*8),
+        body: Container(
+          margin: EdgeInsets.all(_minimumPadding*8),
           child: Form(
             key: _key,
             autovalidate: _validate,
@@ -96,7 +95,6 @@ class _LoginState extends State<Login> {
                     )
                 ), // Password
 
-                isLoading ?
                 Padding(
                   padding: EdgeInsets.only(top: _minimumPadding*5, bottom: _minimumPadding*5),
                   child:
@@ -113,12 +111,11 @@ class _LoginState extends State<Login> {
                     onPressed: _onSubmit,
 
                   ),
-                ) // Login To your account
-                : Center(child: CircularProgressIndicator(),),
+                ), // Login To your account
 
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.only(top: 15.0),
+                  margin: EdgeInsets.only(top: 30.0),
                   child:InkWell(
                     child: Text('Forgot Password', style: TextStyle(fontSize: 25.0, decoration: TextDecoration.underline),),
                     onTap: () {print('zia');},
@@ -138,15 +135,14 @@ class _LoginState extends State<Login> {
     AssetImage assetImage = AssetImage('images/logo.jpg');
     Image image = Image(image: assetImage, width: 120.0,height: 120.0);
 
-    return Container(child: image, margin: EdgeInsets.only(top:_minimumPadding*5, bottom: _minimumPadding*5));
+    return Container(child: image, margin: EdgeInsets.all(_minimumPadding*10));
   }
 
   void _onSubmit() {
+
     if( _key.currentState.validate()) {
-      setState(() {
-        isLoading = false;
-      });
-      var url = Network.login;
+      var url = "${Network.login}";
+      print(url);
       http.post(
           url,
           headers: {"Accept": "application/json"},
@@ -173,9 +169,6 @@ class _LoginState extends State<Login> {
             print(ex.toString());
           });
         } else {
-          setState(() {
-            isLoading = true;
-          });
           mScaffoldState.currentState.showSnackBar(
             SnackBar(
                 backgroundColor: Colors.green,

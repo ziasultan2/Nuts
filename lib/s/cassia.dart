@@ -76,7 +76,7 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            'PRICE', style: TextStyle(fontSize: 20.0,
+                            'PRICE', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -89,7 +89,7 @@ class _CassiaState extends State<Cassia> {
                             validator: validatePrice,
                             controller: price,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -110,7 +110,7 @@ class _CassiaState extends State<Cassia> {
                         Expanded(
                           flex: 2,
                           child: Text('QUANTITY', style: TextStyle(
-                              fontSize: 20.0,
+                              fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -123,7 +123,7 @@ class _CassiaState extends State<Cassia> {
                             validator: validateQuantity,
                             controller: quantity,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                                 textAlign: TextAlign.center,
                           ),
                         ),
@@ -142,7 +142,7 @@ class _CassiaState extends State<Cassia> {
                       children: <Widget>[
                         Expanded(
                           flex: 2,
-                          child: Text('SALES', style: TextStyle(fontSize: 20.0,
+                          child: Text('SALES', style: TextStyle(fontSize: 15.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.green),
                             textAlign: TextAlign.center,),
@@ -155,7 +155,7 @@ class _CassiaState extends State<Cassia> {
                             validator: validateSales,
                             controller: sales,
                             style: TextStyle(
-                                fontSize: 20.0, color: Colors.green),
+                                fontSize: 15.0, color: Colors.green),
                           textAlign: TextAlign.center,),
                         ),
                         SizedBox(width: 10.0,),
@@ -173,7 +173,7 @@ class _CassiaState extends State<Cassia> {
               ),
 
               Divider(
-                height: 50.0,
+                height: 70.0,
               ),
 
               Column(
@@ -185,24 +185,23 @@ class _CassiaState extends State<Cassia> {
                       Expanded(
                         flex: 2,
                         child: Text('MARGIN', style: TextStyle(
-                            fontSize: 20.0,
-                            height: 2.5,
+                            fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.green),
-                          textAlign: TextAlign.center,),
+                          textAlign: TextAlign.right,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
                         flex: 2,
                         child: Text('$_margin',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green,
-                          fontWeight: FontWeight.bold),
+                              fontSize: 20.0, color: Colors.green),
                         textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
                         child: Text('TK', style: TextStyle(fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
                           color: Colors.green,),),
                       ),
                     ],
@@ -213,18 +212,17 @@ class _CassiaState extends State<Cassia> {
                       Expanded(
                         flex: 2,
                         child: Text('VALUE', style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.green),
-                          textAlign: TextAlign.center,),
+                          textAlign: TextAlign.right,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
                         flex: 2,
                         child: Text('$_value',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green,
-                              fontWeight: FontWeight.bold,),
+                              fontSize: 20.0, color: Colors.green),
                           textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
@@ -240,23 +238,23 @@ class _CassiaState extends State<Cassia> {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: Text('COST', style: TextStyle(fontSize: 20.0,
+                        child: Text('COST', style: TextStyle(fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.green),
-                          textAlign: TextAlign.center,),
+                          textAlign: TextAlign.right,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
                         flex: 2,
                         child: Text('$_cost',
                           style: TextStyle(
-                              fontSize: 20.0, color: Colors.green,
-                            fontWeight: FontWeight.bold,),
+                              fontSize: 20.0, color: Colors.green),
                           textAlign: TextAlign.center,),
                       ),
                       SizedBox(width: 10.0,),
                       Expanded(
                         child: Text('Tk', style: TextStyle(fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
                             color: Colors.green),),
                       ),
                     ],
@@ -269,36 +267,35 @@ class _CassiaState extends State<Cassia> {
                 height: 100.0,
               ),
 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _clear,
+                      child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                  Expanded(
+                    child:FlatButton(
+                      padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
+                      onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
+                  ),
+                ],
+              ),
+
+              Divider(
+                height: 50.0,
+              ),
+
             ],
           )
 
-        ),
-
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _clear,
-                child: new Text('CLEAR', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _result ,child: new Text('SHOW', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 15,
-              child:FlatButton(
-                padding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-                onPressed: _save ,child: new Text('SAVE', style: TextStyle(color: Colors.white, fontSize: 25.0),), color: Colors.green,),
-            ),
-          ],
         ),
       ),
     );
@@ -352,7 +349,6 @@ class _CassiaState extends State<Cassia> {
           var cost = jsonDecode(response.body)['cost'];
 
           setState(() {
-            print(margin);
             _margin = margin.toString();
             _value = value.toString();
             _cost = cost.toString();
@@ -409,5 +405,4 @@ class _CassiaState extends State<Cassia> {
       _cost = "";
     });
   }
-
 }
