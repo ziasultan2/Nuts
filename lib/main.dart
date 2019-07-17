@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sohel_nuts/page/almond.dart';
-import 'package:sohel_nuts/page/cashew.dart';
+import 'package:sohel_nuts/page/cashew/cashew.dart';
 import 'package:sohel_nuts/page/cassia.dart';
 import 'package:sohel_nuts/page/home.dart';
 import 'package:sohel_nuts/page/login.dart';
