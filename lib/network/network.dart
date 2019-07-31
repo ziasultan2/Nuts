@@ -19,6 +19,7 @@ class Network
 
   static var cassia_result = '$url/cassia/result';
   static var alomnd_result = '$url/almond/result';
+  static var cashew_result = '$url/cashew/result';
 
   /*
    *  Almond post request
